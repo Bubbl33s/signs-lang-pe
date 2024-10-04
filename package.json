@@ -44,7 +44,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts}": [
+    "*.ts": [
       "npm run prettier",
       "npm run lint:fix"
     ]
