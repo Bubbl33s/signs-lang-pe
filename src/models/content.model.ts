@@ -24,3 +24,6 @@ const contentSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+const Content = mongoose.model("Content", contentSchema);
+export default Content;
