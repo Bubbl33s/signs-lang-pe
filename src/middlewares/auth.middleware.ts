@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { AuthService } from "../services/auth.service";
 
 export const authenticateToken = (
   req: Request,
@@ -15,8 +15,7 @@ export const authenticateToken = (
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET_KEY as string;
-    const decoded = jwt.verify(token, secretKey);
+    const decoded = AuthService.verifyToken(token);
     (req as any).user = decoded;
 
     next();

@@ -5,7 +5,7 @@ import { UserService } from "./user.service";
 const secretKey = process.env.JWT_SECRET_KEY as string;
 
 export class AuthService {
-  static async loginUser(email: string, password: string) {
+  static async userLogin(email: string, password: string) {
     const user = await UserService.getUserByEmail(email);
 
     if (!user) {
