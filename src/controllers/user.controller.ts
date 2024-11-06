@@ -28,6 +28,22 @@ export class UserController {
     }
   }
 
+  static async getUserByEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email } = req.params;
+
+      const user = await UserService.getUserByEmail(email);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async createUser(req: Request, res: Response, next: NextFunction) {
     try {
       const user = req.body as CreateUser;
