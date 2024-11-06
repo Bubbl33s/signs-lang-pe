@@ -1,8 +1,11 @@
-export type CreateUpdateUser = {
+export type UpdateUser = {
   username: string;
   fullName: string;
-  email: string;
-  password: string;
   isDeafMute?: boolean;
   role?: "user" | "moderator";
+};
+
+export type CreateUser = UpdateUser & {
+  email: string;
+  password: string;
 };
