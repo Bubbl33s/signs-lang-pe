@@ -6,6 +6,11 @@ export class UserController {
   static async getUsers(_: Request, res: Response, next: NextFunction) {
     try {
       const users = await UserService.getUsers();
+
+      if (users.length === 0) {
+        throw new Error("No se encontraron usuarios");
+      }
+
       res.json(users);
     } catch (error) {
       next(error);
@@ -19,7 +24,7 @@ export class UserController {
       const user = await UserService.getUserById(userId);
 
       if (!user) {
-        throw new Error("User not found");
+        throw new Error("Usuario no encontrado");
       }
 
       res.json(user);
@@ -35,7 +40,7 @@ export class UserController {
       const user = await UserService.getUserByEmail(email);
 
       if (!user) {
-        throw new Error("User not found");
+        throw new Error("Usuario no encontrado");
       }
 
       res.json(user);
@@ -75,7 +80,7 @@ export class UserController {
 
       await UserService.deleteUser(userId);
 
-      res.json({ message: "User deleted successfully" });
+      res.json({ message: "Userio eliminado correctamente" });
     } catch (error) {
       next(error);
     }

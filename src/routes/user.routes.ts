@@ -5,23 +5,18 @@ import { authenticateToken, authorizeRoles, validate } from "../middlewares";
 import { updateUserValidation, createUserValidation } from "../validations";
 
 const router = Router();
-const PREFIX = "/users";
 
-router.get(PREFIX, UserController.getUsers);
-router.get(`${PREFIX}/:userId`, UserController.getUserById);
-router.get(`${PREFIX}/email/:email`, UserController.getUserByEmail);
-router.post(PREFIX, validate(createUserValidation), UserController.createUser);
+router.get("", UserController.getUsers);
+router.get(`/:userId`, UserController.getUserById);
+router.get(`/email/:email`, UserController.getUserByEmail);
+router.post("", validate(createUserValidation), UserController.createUser);
 router.put(
-  `${PREFIX}/:userId`,
+  `/:userId`,
   authenticateToken,
   validate(updateUserValidation),
   UserController.updateUser,
 );
-router.delete(
-  `${PREFIX}/:userId`,
-  authenticateToken,
-  UserController.deleteUser,
-);
+router.delete(`/:userId`, authenticateToken, UserController.deleteUser);
 
 router.post("/login", AuthController.userLogin);
 

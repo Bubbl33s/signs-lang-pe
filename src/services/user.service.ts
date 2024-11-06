@@ -19,7 +19,7 @@ export class UserService {
     const userWithSameEmail = await this.getUserByEmail(user.email);
 
     if (userWithSameEmail) {
-      throw new Error("Email already in use");
+      throw new Error("Correo electrónico ya en uso");
     }
 
     const userWithSameUsername = await User.findOne({
@@ -27,7 +27,7 @@ export class UserService {
     });
 
     if (userWithSameUsername) {
-      throw new Error("Username already in use");
+      throw new Error("Nombre de usuario ya en uso");
     }
 
     user.password = await hashPassword(user.password);
@@ -39,7 +39,7 @@ export class UserService {
     const userExists = await this.getUserById(userId);
 
     if (!userExists) {
-      throw new Error("User not found");
+      throw new Error("Usuario no encontrado");
     }
 
     const userWithSameUsername = await User.findOne({
@@ -47,7 +47,7 @@ export class UserService {
     });
 
     if (userWithSameUsername) {
-      throw new Error("Username already in use");
+      throw new Error("Nombre de usuario ya en uso");
     }
 
     return User.findByIdAndUpdate(userId, user, { new: true });
@@ -57,7 +57,7 @@ export class UserService {
     const userExists = await this.getUserById(userId);
 
     if (!userExists) {
-      throw new Error("User not found");
+      throw new Error("Usuario no encontrado");
     }
 
     return User.findByIdAndDelete(userId);
