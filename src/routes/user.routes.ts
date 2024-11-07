@@ -11,12 +11,12 @@ router.get(`/:userId`, UserController.getUserById);
 router.get(`/email/:email`, UserController.getUserByEmail);
 router.post("", validate(createUserValidation), UserController.createUser);
 router.put(
-  `/:userId`,
+  "/:userId",
   authenticateToken,
   validate(updateUserValidation),
   UserController.updateUser,
 );
-router.delete(`/:userId`, authenticateToken, UserController.deleteUser);
+router.delete("/:userId", authenticateToken, UserController.deleteUser);
 
 router.post("/login", AuthController.userLogin);
 
