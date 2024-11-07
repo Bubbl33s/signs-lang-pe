@@ -1,6 +1,6 @@
 import { Label } from "../models";
 
-export default class LabelService {
+export class LabelService {
   static async getLabels() {
     return Label.find();
   }
