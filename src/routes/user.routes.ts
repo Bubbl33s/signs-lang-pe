@@ -14,9 +14,15 @@ router.put(
   "/:userId",
   authenticateToken,
   validate(updateUserValidation),
+  authorizeRoles(["user", "moderator"]),
   UserController.updateUser,
 );
-router.delete("/:userId", authenticateToken, UserController.deleteUser);
+router.delete(
+  "/:userId",
+  authenticateToken,
+  authorizeRoles(["user", "moderator"]),
+  UserController.deleteUser,
+);
 
 router.post("/login", AuthController.userLogin);
 
