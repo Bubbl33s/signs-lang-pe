@@ -51,6 +51,7 @@ export class LabelController {
       const labelId = req.params.id;
       const { name } = req.body;
       const label = await LabelService.updateLabel(labelId, name);
+
       res.json(label);
     } catch (error) {
       next(error);
@@ -61,6 +62,7 @@ export class LabelController {
     try {
       const labelId = req.params.id;
       const label = await LabelService.verifyLabel(labelId);
+
       res.json(label);
     } catch (error) {
       next(error);
@@ -71,6 +73,7 @@ export class LabelController {
     try {
       const labelId = req.params.id;
       await LabelService.deleteLabel(labelId);
+
       res.json({ message: "Etiqueta eliminada" });
     } catch (error) {
       next(error);

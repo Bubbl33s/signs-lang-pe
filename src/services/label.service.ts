@@ -1,4 +1,4 @@
-import { Label } from "../models";
+import { Label, Content } from "../models";
 
 export class LabelService {
   static async getLabels() {
@@ -55,6 +55,8 @@ export class LabelService {
     if (!labelExists) {
       throw new Error("Etiqueta no encontrada");
     }
+
+    await Content.deleteMany({ labels: labelId });
 
     return Label.findByIdAndDelete(labelId);
   }
