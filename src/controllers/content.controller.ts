@@ -83,4 +83,15 @@ export class ContentController {
       next(error);
     }
   }
+
+  static async deleteContent(req: Request, res: Response, next: NextFunction) {
+    try {
+      const contentId = req.params.id;
+      const content = await ContentService.deleteContent(contentId);
+
+      res.json(content);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

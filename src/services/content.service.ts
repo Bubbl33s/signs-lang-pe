@@ -2,7 +2,6 @@ import { Content } from "../models";
 import { LabelService } from "./label.service";
 import { UserService } from "./user.service";
 import { CreateContent } from "../types";
-import { promises as fs } from "fs";
 import cloudinary from "../config/cloudinary.config";
 
 export class ContentService {
