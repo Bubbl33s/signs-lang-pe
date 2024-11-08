@@ -1,4 +1,4 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import { LabelController } from "../controllers/label.controller";
 import { authenticateToken, authorizeRoles, validate } from "../middlewares";
 import { labelNameValidation } from "../validations";
@@ -27,3 +27,5 @@ router.delete(
   authorizeRoles(["moderator"]),
   LabelController.deleteLabel,
 );
+
+export default router;
