@@ -1,6 +1,12 @@
 import { Router } from "express";
 import { ContentController } from "../controllers/content.controller";
-import { authenticateToken, authorizeRoles, upload } from "../middlewares";
+import { createContentValidation } from "../validations/content.validation";
+import {
+  authenticateToken,
+  authorizeRoles,
+  validate,
+  upload,
+} from "../middlewares";
 
 const router = Router();
 
@@ -11,6 +17,7 @@ router.post(
   "/",
   authenticateToken,
   authorizeRoles(["user", "moderator"]),
+  validate(createContentValidation),
   upload.single("file"),
   ContentController.createContent,
 );
