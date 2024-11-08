@@ -29,6 +29,10 @@ export class ContentService {
     contributorId,
     labelName,
   }: CreateContent) {
+    if (!contributorId || contributorId === "") {
+      throw new Error("Contribuyente requerido");
+    }
+
     // Validate if contributor exists
     const contributor = await UserService.getUserById(contributorId);
 
@@ -93,13 +97,23 @@ export class ContentService {
     }
 
     // Delete image from cloudinary
-    contentExists.url.split("/").pop();
-    const publicId = contentExists.url.split("/").pop();
+    const publicId = this.extractPublicId(contentExists.url);
 
     if (publicId) {
       await cloudinary.uploader.destroy(publicId);
     }
 
     return Content.findByIdAndDelete(contentId);
+  }
+
+  private static extractPublicId(url: string): string {
+    const pathArray = url.split("/");
+    const startIndex = pathArray.findIndex(
+      (segment) => segment === "signs_lang_app",
+    );
+    const publicIdWithExt = pathArray.slice(startIndex).join("/");
+    const publicId = publicIdWithExt.replace(/\.[^/.]+$/, "");
+
+    return publicId;
   }
 }
