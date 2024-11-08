@@ -1,5 +1,5 @@
 export type CreateContent = {
-  url: string;
+  fileBuffer: Express.Multer.File["buffer"];
   labelId?: string;
   labelName?: string;
   contributorId: string;

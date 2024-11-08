@@ -2,6 +2,8 @@ import { Content } from "../models";
 import { LabelService } from "./label.service";
 import { UserService } from "./user.service";
 import { CreateContent } from "../types";
+import { promises as fs } from "fs";
+import cloudinary from "../config/cloudinary.config";
 
 export class ContentService {
   static async getContents() {
@@ -23,11 +25,12 @@ export class ContentService {
   }
 
   static async createContent({
-    url,
+    fileBuffer,
     labelId,
     contributorId,
     labelName,
   }: CreateContent) {
+    // Validate if contributor exists
     const contributor = await UserService.getUserById(contributorId);
 
     if (!contributor) {
@@ -36,6 +39,7 @@ export class ContentService {
 
     let label;
 
+    // Validate if label exists
     if (labelId) {
       label = await LabelService.getLabelById(labelId);
 
@@ -47,15 +51,28 @@ export class ContentService {
         throw new Error("Nombre de etiqueta requerido");
       }
 
+      // If label doesn't exist and labelName is provided, create label
       label = await LabelService.createLabel(labelName);
-
       labelId = label._id.toString();
     }
 
-    return Content.create({ url, labelId, contributorId });
+    // Upload image to cloudinary
+    const uploadStream = cloudinary.uploader.upload_stream;
+    const result: any = await new Promise((resolve, reject) => {
+      const stream = uploadStream(
+        { folder: `signs_lang_app/content/${labelId}` },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        },
+      );
+      stream.end(fileBuffer);
+    });
+
+    return Content.create({ url: result.secure_url, labelId, contributorId });
   }
 
-  static async verifiyContent(contentId: string) {
+  static async verifyContent(contentId: string) {
     const contentExists = await this.getContentById(contentId);
 
     if (!contentExists) {
