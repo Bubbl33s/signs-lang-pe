@@ -92,6 +92,14 @@ export class ContentService {
       throw new Error("Contenido no encontrado");
     }
 
+    // Delete image from cloudinary
+    contentExists.url.split("/").pop();
+    const publicId = contentExists.url.split("/").pop();
+
+    if (publicId) {
+      await cloudinary.uploader.destroy(publicId);
+    }
+
     return Content.findByIdAndDelete(contentId);
   }
 }
