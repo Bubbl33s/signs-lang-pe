@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { LabelController } from "../controllers/label.controller";
 import { authenticateToken, authorizeRoles, validate } from "../middlewares";
 import { labelNameValidation } from "../validations";
