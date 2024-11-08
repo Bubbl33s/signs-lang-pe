@@ -56,11 +56,8 @@ export class LabelService {
       throw new Error("Etiqueta no encontrada");
     }
 
-    // await Content.deleteMany({ labels: labelId });
-    await Content.updateMany(
-      { labels: labelId },
-      { $pull: { labels: labelId } },
-    );
+    // await Content.deleteMany({ labelId });
+    await Content.updateMany({ labelId }, { $pull: { labelId } });
 
     return Label.findByIdAndDelete(labelId);
   }
