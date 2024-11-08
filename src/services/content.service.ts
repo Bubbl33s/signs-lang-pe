@@ -1,4 +1,4 @@
-import { Content } from "../models";
+import { Content, Label } from "../models";
 import { LabelService } from "./label.service";
 import { UserService } from "./user.service";
 import { CreateContent } from "../types";
@@ -82,11 +82,45 @@ export class ContentService {
       throw new Error("Contenido no encontrado");
     }
 
-    return Content.findByIdAndUpdate(
+    // Verificar el contenido
+    await Content.findByIdAndUpdate(
       contentId,
       { verified: true },
       { new: true },
     );
+
+    // Obtain the labelId of the content
+    const labelId = contentExists.labelId;
+
+    if (labelId) {
+      await this.updateLabelReliability(labelId.toString());
+    }
+
+    return contentExists;
+  }
+
+  static async updateLabelReliability(labelId: string) {
+    const MIN_CONTENTS_THRESHOLD = 10;
+
+    // Obtain all contents for the label
+    const allContents = await this.getContentsByLabel(labelId);
+    const totalContents = allContents.length;
+
+    if (totalContents < MIN_CONTENTS_THRESHOLD) {
+      // If the label has less than 10 contents, set reliability to 0
+      return Label.findByIdAndUpdate(labelId, { reliability: 0 });
+    }
+
+    // Calculate the number of verified contents
+    const verifiedContents = allContents.filter(
+      (content) => content.verified,
+    ).length;
+
+    // Calculate the reliability
+    const reliability = (verifiedContents / totalContents) * 100;
+
+    // Update the label reliability
+    return Label.findByIdAndUpdate(labelId, { reliability });
   }
 
   static async deleteContent(contentId: string) {
