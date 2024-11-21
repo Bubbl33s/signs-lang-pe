@@ -13,6 +13,7 @@ const contentSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
     default: false,
+    index: true,
   },
   contributorId: {
     type: mongoose.Schema.Types.ObjectId,

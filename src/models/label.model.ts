@@ -16,6 +16,7 @@ const labelSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
     default: false,
+    index: true,
   },
   createdAt: {
     type: Date,
