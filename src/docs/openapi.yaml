@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Signs Lang PE
-  description: "Tecnologías utilizadas: Node.js, TypeScript, Express, PostgreSQL, Prisma, JWT, Swagger. Desarrollado por: Valeria Lozano."
+  description: "Tecnologías utilizadas: Node.js, TypeScript, Express, PostgreSQL, Prisma, JWT, Swagger, Cloudinary. Desarrollado por: Valeria Lozano."
   version: 1.0.0
 
 servers:
@@ -9,3 +9,11 @@ servers:
     description: Servidor de desarrollo
   - url: https://signs-lang-pe.up.railway.app/api
     description: Servidor de producción
+
+tags:
+  - name: Users
+    description: Operaciones relacionadas con los usuarios
+  - name: Labels
+    description: Operaciones relacionadas con las etiquetas
+  - name: Contents
+    description: Operaciones relacionadas con los contenidos
