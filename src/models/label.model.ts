@@ -6,6 +6,12 @@ const labelSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+    index: true,
+  },
   reliability: {
     type: Number,
     required: true,
@@ -26,4 +32,5 @@ const labelSchema = new mongoose.Schema({
 });
 
 const Label = mongoose.model("Label", labelSchema);
+
 export default Label;
