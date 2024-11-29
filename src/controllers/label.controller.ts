@@ -46,11 +46,44 @@ export class LabelController {
     }
   }
 
+  static async getLabelsByCategory(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const categoryId = req.params.categoryId;
+      const labels = await LabelService.getLabelsByCategory(categoryId);
+
+      if (!labels) {
+        throw new Error("No hay etiquetas");
+      }
+
+      res.json(labels);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async createLabel(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { name, categoryId } = req.body;
+      const label = await LabelService.createLabel({ name, categoryId });
+
+      res.json(label);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateLabel(req: Request, res: Response, next: NextFunction) {
     try {
       const labelId = req.params.id;
-      const { name } = req.body;
-      const label = await LabelService.updateLabel(labelId, name);
+      const { name, categoryId } = req.body;
+      const label = await LabelService.updateLabel(labelId, {
+        name,
+        categoryId,
+      });
 
       res.json(label);
     } catch (error) {

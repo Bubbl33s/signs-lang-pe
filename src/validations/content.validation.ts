@@ -10,8 +10,8 @@ export const createContentValidation = z.object({
       message: "El nombre de la etiqueta debe tener como máximo 100 caracteres",
     })
     .optional(),
-  // contributorId: z.string({
-  //   required_error: "El ID del contribuyente es requerido",
-  //   invalid_type_error: "El ID del contribuyente debe ser una cadena de texto",
-  // }),
+  contributorId: z.string({
+    required_error: "El ID del contribuyente es requerido",
+    invalid_type_error: "El ID del contribuyente debe ser una cadena de texto",
+  }),
 });
