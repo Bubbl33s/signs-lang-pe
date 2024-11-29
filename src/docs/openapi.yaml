@@ -104,6 +104,30 @@ components:
           type: string
           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjIwZjQwZjIwZjIwZjIwZjIwZjIwZjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTYzMDIwNjQwMCwiZXhwIjoxNjMwMjA2NDAwfQ.7"
 
+    # USERS
+    user:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/user"
+
+    # LABELS
+    label:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/label"
+
+    # CONTENTS
+    content:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/content"
+
   # BASES
   bases:
     id:
@@ -157,8 +181,96 @@ components:
       example: "2021-09-01T00:00:00.000Z"
       description: Fecha y hora en formato ISO 8601
 
+  # REQUEST BODIES
+  requestBodies:
+    # AUTH
+    userLogin:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                $ref: "#/components/bases/email"
+              password:
+                $ref: "#/components/bases/password"
+
+    # USERS
+    userCrate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                $ref: "#/components/bases/username"
+              fullName:
+                $ref: "#/components/bases/fullName"
+              email:
+                $ref: "#/components/bases/email"
+              password:
+                $ref: "#/components/bases/password"
+              isDeafMute:
+                type: boolean
+                example: false
+                description: Indica si el usuario es sordo-mudo
+                optional: true
+              role:
+                type: string
+                example: "user"
+                description: Rol del usuario, puede ser "admin", "moderator" o "user"
+                optional: true
+
+    userUpdate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                $ref: "#/components/bases/username"
+              fullName:
+                $ref: "#/components/bases/fullName"
+              isDeafMute:
+                type: boolean
+                example: false
+                description: Indica si el usuario es sordo-mudo
+                optional: true
+              role:
+                type: string
+                example: "user"
+                description: Rol del usuario, puede ser "admin", "moderator" o "user"
+                optional: true
+
+    # LABELS
+    label:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/components/bases/name"
+
+    # CONTENTS
+    content:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              labelId:
+                $ref: "#/components/bases/id"
+              contributorId:
+                $ref: "#/components/bases/id"
+              labelName:
+                type: string
+                example: "Juguetes"
+                description: Nombre de la etiqueta
+
   # SCHEMAS
   schemas:
+    # USERS
     user:
       type: object
       properties:
@@ -183,6 +295,7 @@ components:
         createdAt:
           $ref: "#/components/bases/date"
 
+    # LABELS
     label:
       type: object
       properties:
@@ -201,6 +314,7 @@ components:
         createdAt:
           $ref: "#/components/bases/date"
 
+    # CONTENTS
     content:
       type: object
       properties:
