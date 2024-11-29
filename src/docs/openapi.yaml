@@ -48,7 +48,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/requestBodies/userCrate"
+              $ref: "#/components/requestBodies/userCreate"
       responses:
         "201":
           description: Usuario creado
@@ -712,88 +712,83 @@ components:
   requestBodies:
     # AUTH
     userLogin:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                $ref: "#/components/bases/email"
-              password:
-                $ref: "#/components/bases/password"
+      type: object
+      properties:
+        email:
+          $ref: "#/components/bases/email"
+        password:
+          $ref: "#/components/bases/password"
 
     # USERS
-    userCrate:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              username:
-                $ref: "#/components/bases/username"
-              fullName:
-                $ref: "#/components/bases/fullName"
-              email:
-                $ref: "#/components/bases/email"
-              password:
-                $ref: "#/components/bases/password"
-              isDeafMute:
-                type: boolean
-                example: false
-                description: Indica si el usuario es sordo-mudo
-                optional: true
-              role:
-                type: string
-                example: "user"
-                description: Rol del usuario, puede ser "admin", "moderator" o "user"
-                optional: true
+    userCreate:
+      type: object
+      required:
+        - username
+        - fullName
+        - email
+        - password
+      properties:
+        username:
+          $ref: "#/components/bases/username"
+        fullName:
+          $ref: "#/components/bases/fullName"
+        email:
+          $ref: "#/components/bases/email"
+        password:
+          $ref: "#/components/bases/password"
+        isDeafMute:
+          type: boolean
+          example: false
+          description: Indica si el usuario es sordo-mudo
+        role:
+          type: string
+          example: "user"
+          description: Rol del usuario, puede ser "admin", "moderator" o "user"
 
     userUpdate:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              username:
-                $ref: "#/components/bases/username"
-              fullName:
-                $ref: "#/components/bases/fullName"
-              isDeafMute:
-                type: boolean
-                example: false
-                description: Indica si el usuario es sordo-mudo
-                optional: true
-              role:
-                type: string
-                example: "user"
-                description: Rol del usuario, puede ser "admin", "moderator" o "user"
-                optional: true
+      type: object
+      required:
+        - username
+        - fullName
+      properties:
+        username:
+          $ref: "#/components/bases/username"
+        fullName:
+          $ref: "#/components/bases/fullName"
+        isDeafMute:
+          type: boolean
+          example: false
+          description: Indica si el usuario es sordo-mudo
+        role:
+          type: string
+          example: "user"
+          description: Rol del usuario, puede ser "admin", "moderator" o "user"
 
     # LABELS
     label:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                $ref: "#/components/bases/name"
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/bases/name"
 
     # CONTENTS
     content:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              labelId:
-                $ref: "#/components/bases/id"
-              contributorId:
-                $ref: "#/components/bases/id"
-              labelName:
-                type: string
-                example: "Juguetes"
-                description: Nombre de la etiqueta
+      type: object
+      required:
+        - labelId
+        - contributorId
+        - labelName
+      properties:
+        labelId:
+          $ref: "#/components/bases/id"
+        contributorId:
+          $ref: "#/components/bases/id"
+        labelName:
+          type: string
+          example: "Juguetes"
+          description: Nombre de la etiqueta
 
   # SCHEMAS
   schemas:
