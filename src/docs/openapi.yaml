@@ -25,9 +25,6 @@ paths:
       tags:
         - Users
       summary: Obtener todos los usuarios
-      description: Requiere autenticación
-      security:
-        - bearerAuth: []
       responses:
         "200":
           description: OK
@@ -69,9 +66,6 @@ paths:
       tags:
         - Users
       summary: Obtener un usuario por ID
-      description: Requiere autenticación
-      security:
-        - bearerAuth: []
       parameters:
         - in: path
           name: id
@@ -164,9 +158,6 @@ paths:
       tags:
         - Users
       summary: Obtener un usuario por correo electrónico
-      description: Requiere autenticación
-      security:
-        - bearerAuth: []
       parameters:
         - in: path
           name: email
@@ -283,6 +274,9 @@ paths:
       tags:
         - Labels
       summary: Actualizar una etiqueta por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: id
@@ -314,6 +308,9 @@ paths:
       tags:
         - Labels
       summary: Eliminar una etiqueta por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: id
@@ -329,11 +326,38 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /labels/name/{name}:
+    get:
+      tags:
+        - Labels
+      summary: Obtener una etiqueta por nombre
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            $ref: "#/components/bases/name"
+          description: Nombre de la etiqueta
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/label"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /labels/{id}/verify:
     patch:
       tags:
         - Labels
       summary: Verificar una etiqueta por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: id
@@ -375,6 +399,9 @@ paths:
       tags:
         - Contents
       summary: Crear un nuevo contenido
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -421,6 +448,9 @@ paths:
       tags:
         - Contents
       summary: Eliminar un contenido por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: id
@@ -493,6 +523,9 @@ paths:
       tags:
         - Contents
       summary: Verificar un contenido por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: id
