@@ -13,12 +13,12 @@ servers:
 tags:
   - name: Users
     description: Operaciones relacionadas con los usuarios
+  - name: Categories
+    description: Operaciones relacionadas con las categorías
   - name: Labels
     description: Operaciones relacionadas con las etiquetas
   - name: Contents
     description: Operaciones relacionadas con los contenidos
-  - name: Categories
-    description: Operaciones relacionadas con las categorías
 
 paths:
   # USERS
@@ -377,6 +377,9 @@ paths:
       tags:
         - Labels
       summary: Crear una nueva etiqueta
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -958,6 +961,8 @@ components:
       properties:
         name:
           $ref: "#/components/bases/name"
+        categoryId:
+          $ref: "#/components/bases/id"
 
     # CONTENTS
     content:

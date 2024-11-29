@@ -65,11 +65,25 @@ export class LabelController {
     }
   }
 
+  static async createLabel(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { name, categoryId } = req.body;
+      const label = await LabelService.createLabel({ name, categoryId });
+
+      res.json(label);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateLabel(req: Request, res: Response, next: NextFunction) {
     try {
       const labelId = req.params.id;
-      const { name } = req.body;
-      const label = await LabelService.updateLabel(labelId, name);
+      const { name, categoryId } = req.body;
+      const label = await LabelService.updateLabel(labelId, {
+        name,
+        categoryId,
+      });
 
       res.json(label);
     } catch (error) {

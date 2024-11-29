@@ -1,5 +1,5 @@
 import { Category } from "../models";
-import { CreateCategory, UpdateCategory } from "../types/category.types";
+import { CreateCategory, UpdateCategory } from "../types";
 
 export class CategoryService {
   static async getCategories() {

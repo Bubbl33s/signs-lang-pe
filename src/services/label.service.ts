@@ -1,4 +1,5 @@
 import { Label, Content } from "../models";
+import { CreateLabel, UpdateLabel } from "../types";
 
 export class LabelService {
   static async getLabels() {
@@ -17,30 +18,30 @@ export class LabelService {
     return Label.find({ categoryId });
   }
 
-  static async createLabel(name: string) {
-    const labelWithSameName = await Label.findOne({ name });
+  static async createLabel(label: CreateLabel) {
+    const labelWithSameName = await Label.findOne({ name: label.name });
 
     if (labelWithSameName) {
       throw new Error("Etiqueta ya existe");
     }
 
-    return Label.create({ name });
+    return Label.create(label);
   }
 
-  static async updateLabel(labelId: string, name: string) {
+  static async updateLabel(labelId: string, label: UpdateLabel) {
     const labelExists = await this.getLabelById(labelId);
 
     if (!labelExists) {
       throw new Error("Etiqueta no encontrada");
     }
 
-    const labelWithSameName = await Label.findOne({ name });
+    const labelWithSameName = await Label.findOne({ name: label.name });
 
     if (labelWithSameName) {
       throw new Error("Etiqueta ya existe");
     }
 
-    return Label.findByIdAndUpdate(labelId, { name }, { new: true });
+    return Label.findByIdAndUpdate(labelId, label, { new: true });
   }
 
   static async verifyLabel(labelId: string) {

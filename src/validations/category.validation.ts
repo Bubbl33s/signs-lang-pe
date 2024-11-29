@@ -23,9 +23,9 @@ export const createCategoryValidation = z.object({
       message:
         "La descripción de la categoría debe tener como mínimo 3 caracteres",
     })
-    .max(100, {
+    .max(255, {
       message:
-        "La descripción de la categoría debe tener como máximo 100 caracteres",
+        "La descripción de la categoría debe tener como máximo 255 caracteres",
     }),
   icon: z
     .string({
