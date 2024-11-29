@@ -50,6 +50,26 @@ export class ContentController {
     }
   }
 
+  static async getContentsByContributor(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const contributorId = req.params.contributorId;
+      const contents =
+        await ContentService.getContentsByContributor(contributorId);
+
+      if (!contents) {
+        throw new Error("Contenido no encontrado");
+      }
+
+      res.json(contents);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async createContent(req: Request, res: Response, next: NextFunction) {
     try {
       const { labelId, contributorId, labelName } = req.body;

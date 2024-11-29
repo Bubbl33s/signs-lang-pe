@@ -462,6 +462,32 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /contents/contributor/{contributorId}:
+    get:
+      tags:
+        - Contents
+      summary: Obtener todos los contenidos por ID de contribuidor
+      parameters:
+        - in: path
+          name: contributorId
+          required: true
+          schema:
+            $ref: "#/components/bases/id"
+          description: ID del contribuidor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/content"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /contents/{id}/verify:
     patch:
       tags:
