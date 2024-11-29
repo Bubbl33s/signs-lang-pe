@@ -17,3 +17,207 @@ tags:
     description: Operaciones relacionadas con las etiquetas
   - name: Contents
     description: Operaciones relacionadas con los contenidos
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Token JWT para autenticación. Los usuarios autenticados pueden tener uno de los siguientes roles: "admin", "user".'
+
+  # RESPONSES
+  responses:
+    # GENERAL
+    BadRequest:
+      description: Datos no válidos. La solicitud no se puede procesar debido a errores de cliente.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Datos no válidos. Asegúrate de que todos los campos requeridos estén presentes y sean correctos."
+              validationErrors:
+                type: array
+                items:
+                  type: string
+                example:
+                  [
+                    "El campo 'nombre' es requerido.",
+                    "La dirección de correo electrónico no es válida.",
+                    "Ya existe un usuario con el correo electrónico",
+                  ]
+
+    Unauthorized:
+      description: No autenticado. Se requiere un token válido.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "No autenticado. Se requiere un token válido."
+
+    Forbidden:
+      description: No tienes permisos para acceder a este recurso.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Acceso prohibido. No tienes los permisos necesarios."
+
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "No se encontró el recurso solicitado"
+
+    InternalServerError:
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error interno del servidor"
+
+    # AUTH
+    userLogin:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/user"
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjIwZjQwZjIwZjIwZjIwZjIwZjIwZjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTYzMDIwNjQwMCwiZXhwIjoxNjMwMjA2NDAwfQ.7"
+
+  # BASES
+  bases:
+    id:
+      type: string
+      example: "jndasl97jnias7280004872nk"
+      description: Identificador único del recurso
+
+    fullName:
+      type: string
+      example: "John Doe"
+      description: Nombre completo del usuario
+
+    username:
+      type: string
+      example: "john.doe"
+      description: Nombre de usuario, debe tener al menos 3 caracteres
+
+    email:
+      type: string
+      example: "john.doe@example.com"
+      description: Correo electrónico del usuario, debe cumplir con el formato de un correo electrónico válido
+
+    password:
+      type: string
+      example: "Abcd1234_"
+      description: Contraseña del usuario, debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial
+
+    passwordHash:
+      type: string
+      example: "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36FjsdY4Z5k6Q5J5Z5J5J5K"
+      description: Contraseña del usuario encriptada
+
+    image:
+      type: string
+      format: binary
+      description: Imagen a subir.
+
+    name:
+      type: string
+      example: "Juguetes"
+      description: Nombre del producto, categoría, marca o material
+
+    description:
+      type: string
+      example: "Juguetes para niños"
+      description: Descripción del producto, categoría, marca, material o descuento
+
+    date:
+      type: string
+      format: date-time
+      example: "2021-09-01T00:00:00.000Z"
+      description: Fecha y hora en formato ISO 8601
+
+  # SCHEMAS
+  schemas:
+    user:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/bases/id"
+        username:
+          $ref: "#/components/bases/username"
+        fullName:
+          $ref: "#/components/bases/fullName"
+        email:
+          $ref: "#/components/bases/email"
+        password:
+          $ref: "#/components/bases/password"
+        isDeafMute:
+          type: boolean
+          example: false
+          description: Indica si el usuario es sordo-mudo
+        role:
+          type: string
+          example: "user"
+          description: Rol del usuario, puede ser "admin", "moderator" o "user"
+        createdAt:
+          $ref: "#/components/bases/date"
+
+    label:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/bases/id"
+        name:
+          $ref: "#/components/bases/name"
+        reliability:
+          type: number
+          example: 0.8
+          description: Fiabilidad de la etiqueta, debe ser un número entre 0 y 1
+        verified:
+          type: boolean
+          example: true
+          description: Indica si la etiqueta ha sido verificada
+        createdAt:
+          $ref: "#/components/bases/date"
+
+    content:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/bases/id"
+        url:
+          type: string
+          example: "https://www.example.com/image.jpg"
+          description: URL de la imagen
+        verified:
+          type: boolean
+          example: true
+          description: Indica si la etiqueta ha sido verificada
+        contributor:
+          type: object
+          example:
+            _id: "jndasl97jnias7280004872nk"
+            username: "john.doe"
+        createdAt:
+          $ref: "#/components/bases/date"
