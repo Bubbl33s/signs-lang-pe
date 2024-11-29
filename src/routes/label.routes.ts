@@ -11,20 +11,20 @@ router.get("/name/:name", LabelController.getLabelByName);
 router.patch(
   "/:id",
   authenticateToken,
-  authorizeRoles(["user", "moderator"]),
+  authorizeRoles(["user", "moderator", "admin"]),
   validate(labelNameValidation),
   LabelController.updateLabel,
 );
 router.patch(
   "/:id/verify",
   authenticateToken,
-  authorizeRoles(["moderator"]),
+  authorizeRoles(["moderator", "admin"]),
   LabelController.verifyLabel,
 );
 router.delete(
   "/:id",
   authenticateToken,
-  authorizeRoles(["moderator"]),
+  authorizeRoles(["moderator", "admin"]),
   LabelController.deleteLabel,
 );
 

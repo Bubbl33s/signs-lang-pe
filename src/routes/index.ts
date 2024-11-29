@@ -5,7 +5,7 @@ import contentRoutes from "./content.routes";
 
 export default function routes(app: Application) {
   app.get("/", (_, res) => {
-    res.send("Hello World");
+    res.redirect("/api/docs");
   });
 
   const API_PREFIX = "/api";

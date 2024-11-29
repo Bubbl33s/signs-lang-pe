@@ -23,6 +23,16 @@ export class ContentService {
     return Content.find({ labelId });
   }
 
+  static async getContentsByContributor(contributorId: string) {
+    const contributorExists = await UserService.getUserById(contributorId);
+
+    if (!contributorExists) {
+      throw new Error("Contribuyente no encontrado");
+    }
+
+    return Content.find({ contributorId });
+  }
+
   static async createContent({
     fileBuffer,
     labelId,

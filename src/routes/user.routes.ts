@@ -7,20 +7,20 @@ import { updateUserValidation, createUserValidation } from "../validations";
 const router = Router();
 
 router.get("", UserController.getUsers);
-router.get(`/:userId`, UserController.getUserById);
+router.get(`/:id`, UserController.getUserById);
 router.get(`/email/:email`, UserController.getUserByEmail);
 router.post("", validate(createUserValidation), UserController.createUser);
 router.put(
-  "/:userId",
+  "/:id",
   authenticateToken,
   validate(updateUserValidation),
-  authorizeRoles(["user", "moderator"]),
+  authorizeRoles(["user", "moderator", "admin"]),
   UserController.updateUser,
 );
 router.delete(
-  "/:userId",
+  "/:id",
   authenticateToken,
-  authorizeRoles(["user", "moderator"]),
+  authorizeRoles(["user", "moderator", "admin"]),
   UserController.deleteUser,
 );
 

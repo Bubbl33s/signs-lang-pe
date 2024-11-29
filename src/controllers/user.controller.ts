@@ -19,9 +19,9 @@ export class UserController {
 
   static async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      const user = await UserService.getUserById(userId);
+      const user = await UserService.getUserById(id);
 
       if (!user) {
         throw new Error("Usuario no encontrado");
@@ -62,10 +62,10 @@ export class UserController {
 
   static async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
       const user = req.body as UpdateUser;
 
-      const updatedUser = await UserService.updateUser(userId, user);
+      const updatedUser = await UserService.updateUser(id, user);
 
       res.json(updatedUser);
     } catch (error) {
@@ -75,11 +75,11 @@ export class UserController {
 
   static async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      await UserService.deleteUser(userId);
+      await UserService.deleteUser(id);
 
-      res.json({ message: "Userio eliminado correctamente" });
+      res.json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
       next(error);
     }
