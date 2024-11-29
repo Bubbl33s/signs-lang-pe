@@ -14,13 +14,13 @@ router.put(
   "/:id",
   authenticateToken,
   validate(updateUserValidation),
-  authorizeRoles(["user", "moderator"]),
+  authorizeRoles(["user", "moderator", "admin"]),
   UserController.updateUser,
 );
 router.delete(
   "/:id",
   authenticateToken,
-  authorizeRoles(["user", "moderator"]),
+  authorizeRoles(["user", "moderator", "admin"]),
   UserController.deleteUser,
 );
 

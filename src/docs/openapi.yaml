@@ -392,6 +392,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/content"
+        "201":
+          description: Contenido creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/content"
         "500":
           $ref: "#/components/responses/InternalServerError"
 
@@ -403,9 +409,8 @@ paths:
       security:
         - bearerAuth: []
       requestBody:
-        required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: "#/components/requestBodies/content"
       responses:
@@ -789,9 +794,8 @@ components:
     content:
       type: object
       required:
-        - labelId
         - contributorId
-        - labelName
+        - file
       properties:
         labelId:
           $ref: "#/components/bases/id"
@@ -801,6 +805,8 @@ components:
           type: string
           example: "Juguetes"
           description: Nombre de la etiqueta
+        file:
+          $ref: "#/components/bases/image"
 
   # SCHEMAS
   schemas:
