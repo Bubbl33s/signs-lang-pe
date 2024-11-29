@@ -6,7 +6,7 @@ const labelSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  category: {
+  categoryId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true,

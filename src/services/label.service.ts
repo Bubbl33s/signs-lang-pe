@@ -13,6 +13,10 @@ export class LabelService {
     return Label.findOne({ name });
   }
 
+  static getLabelsByCategory(categoryId: string) {
+    return Label.find({ categoryId });
+  }
+
   static async createLabel(name: string) {
     const labelWithSameName = await Label.findOne({ name });
 

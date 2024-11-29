@@ -46,6 +46,25 @@ export class LabelController {
     }
   }
 
+  static async getLabelsByCategory(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const categoryId = req.params.categoryId;
+      const labels = await LabelService.getLabelsByCategory(categoryId);
+
+      if (!labels) {
+        throw new Error("No hay etiquetas");
+      }
+
+      res.json(labels);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateLabel(req: Request, res: Response, next: NextFunction) {
     try {
       const labelId = req.params.id;

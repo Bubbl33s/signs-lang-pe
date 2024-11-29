@@ -8,6 +8,7 @@ const router = Router();
 router.get("/", LabelController.getLabels);
 router.get("/:id", LabelController.getLabelById);
 router.get("/name/:name", LabelController.getLabelByName);
+router.get("/category/:categoryId", LabelController.getLabelsByCategory);
 router.patch(
   "/:id",
   authenticateToken,
