@@ -34,8 +34,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/user"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalServerError"
 
@@ -80,10 +78,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/user"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -172,10 +166,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/user"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -201,8 +191,6 @@ paths:
                 $ref: "#/components/responses/userLogin"
         "400":
           $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalServerError"
 
@@ -299,6 +287,10 @@ paths:
                 $ref: "#/components/schemas/label"
         "400":
           $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -321,6 +313,10 @@ paths:
       responses:
         "204":
           description: Etiqueta eliminada
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -372,6 +368,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/label"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -415,6 +415,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/content"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":
@@ -461,6 +465,10 @@ paths:
       responses:
         "204":
           description: Contenido eliminado
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -540,6 +548,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/content"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
