@@ -13,6 +13,20 @@ export const createCategoryValidation = z.object({
     .max(100, {
       message: "El nombre de la categoría debe tener como máximo 30 caracteres",
     }),
+  description: z
+    .string({
+      required_error: "La descripción de la categoría es requerida",
+      invalid_type_error:
+        "La descripción de la categoría debe ser una cadena de texto",
+    })
+    .min(3, {
+      message:
+        "La descripción de la categoría debe tener como mínimo 3 caracteres",
+    })
+    .max(100, {
+      message:
+        "La descripción de la categoría debe tener como máximo 100 caracteres",
+    }),
   icon: z
     .string({
       invalid_type_error:
@@ -32,6 +46,20 @@ export const updateCategoryValidation = z.object({
     })
     .max(100, {
       message: "El nombre de la categoría debe tener como máximo 30 caracteres",
+    })
+    .optional(),
+  description: z
+    .string({
+      invalid_type_error:
+        "La descripción de la categoría debe ser una cadena de texto",
+    })
+    .min(3, {
+      message:
+        "La descripción de la categoría debe tener como mínimo 3 caracteres",
+    })
+    .max(100, {
+      message:
+        "La descripción de la categoría debe tener como máximo 100 caracteres",
     })
     .optional(),
   icon: z
