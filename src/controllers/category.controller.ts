@@ -22,8 +22,8 @@ export class CategoryController {
     next: NextFunction,
   ) {
     try {
-      const { categoryId } = req.params;
-      const category = await CategoryService.getCategoryById(categoryId);
+      const { id } = req.params;
+      const category = await CategoryService.getCategoryById(id);
 
       if (!category) {
         throw new Error("Categoría no encontrada");
@@ -66,11 +66,8 @@ export class CategoryController {
 
   static async updateCategory(req: Request, res: Response, next: NextFunction) {
     try {
-      const { categoryId } = req.params;
-      const category = await CategoryService.updateCategory(
-        categoryId,
-        req.body,
-      );
+      const { id } = req.params;
+      const category = await CategoryService.updateCategory(id, req.body);
 
       res.json(category);
     } catch (error) {
@@ -80,8 +77,8 @@ export class CategoryController {
 
   static async deleteCategory(req: Request, res: Response, next: NextFunction) {
     try {
-      const { categoryId } = req.params;
-      const category = await CategoryService.deleteCategory(categoryId);
+      const { id } = req.params;
+      const category = await CategoryService.deleteCategory(id);
 
       res.json(category);
     } catch (error) {
