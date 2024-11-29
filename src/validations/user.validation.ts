@@ -29,8 +29,8 @@ export const updateUserValidation = z.object({
     })
     .optional(),
   role: z
-    .enum(["user", "moderator"], {
-      message: "El rol debe ser 'user' o 'moderator'",
+    .enum(["user", "moderator", "admin"], {
+      message: "El rol debe ser 'user', 'moderator' o 'admin'",
     })
     .optional(),
 });
@@ -56,8 +56,8 @@ export const createUserValidation = z.object({
     .max(25, {
       message: "La contraseña debe tener como máximo 25 caracteres",
     })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/, {
+    .regex(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*_])/, {
       message:
-        "La contraseña debe tener al menos una letra minúscula, una letra mayúscula y un número",
+        "La contraseña debe tener al menos una letra mayúscula, un número y un caracter especial",
     }),
 });
