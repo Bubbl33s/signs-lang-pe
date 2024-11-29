@@ -1,6 +1,7 @@
 import { Content, Label } from "../models";
 import { LabelService } from "./label.service";
 import { UserService } from "./user.service";
+import { CategoryService } from "./category.service";
 import { CreateContent } from "../types";
 import cloudinary from "../config/cloudinary.config";
 
@@ -37,6 +38,7 @@ export class ContentService {
     fileBuffer,
     labelId,
     contributorId,
+    categoryId,
     labelName,
   }: CreateContent) {
     if (!contributorId || contributorId === "") {
@@ -60,12 +62,18 @@ export class ContentService {
         throw new Error("Etiqueta no encontrada");
       }
     } else {
-      if (!labelName) {
+      if (!labelName || !categoryId) {
         throw new Error("Nombre de etiqueta requerido");
       }
 
+      const categoryExists = await CategoryService.getCategoryById(categoryId);
+
+      if (!categoryExists) {
+        throw new Error("Categoría no encontrada");
+      }
+
       // If label doesn't exist and labelName is provided, create label
-      label = await LabelService.createLabel(labelName);
+      label = await LabelService.createLabel({ name: labelName, categoryId });
       labelId = label._id.toString();
     }
 
@@ -93,7 +101,7 @@ export class ContentService {
     }
 
     // Verificar el contenido
-    await Content.findByIdAndUpdate(
+    const content = await Content.findByIdAndUpdate(
       contentId,
       { verified: true },
       { new: true },
@@ -106,7 +114,7 @@ export class ContentService {
       await this.updateLabelReliability(labelId.toString());
     }
 
-    return contentExists;
+    return content;
   }
 
   static async updateLabelReliability(labelId: string) {
