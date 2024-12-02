@@ -25,6 +25,10 @@ const labelSchema = new mongoose.Schema({
     default: false,
     index: true,
   },
+  primaryContentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Content",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

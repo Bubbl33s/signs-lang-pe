@@ -102,6 +102,23 @@ export class LabelController {
     }
   }
 
+  static async setPrimaryContent(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const labelId = req.params.id;
+      const { contentId } = req.body;
+
+      const label = await LabelService.setPrimaryContent(labelId, contentId);
+
+      res.json(label);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async deleteLabel(req: Request, res: Response, next: NextFunction) {
     try {
       const labelId = req.params.id;
