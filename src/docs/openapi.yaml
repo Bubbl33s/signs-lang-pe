@@ -1018,6 +1018,8 @@ components:
           type: string
           example: "Juguetes"
           description: Nombre de la etiqueta
+        categoryId:
+          $ref: "#/components/bases/id"
         file:
           $ref: "#/components/bases/image"
 
