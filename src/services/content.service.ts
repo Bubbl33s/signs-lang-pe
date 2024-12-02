@@ -148,6 +148,14 @@ export class ContentService {
       throw new Error("Contenido no encontrado");
     }
 
+    const label = await LabelService.getLabelById(
+      contentExists.labelId.toString(),
+    );
+
+    if (label && label.primaryContentId!.toString() === contentId) {
+      throw new Error("No se puede eliminar contenido primario");
+    }
+
     // Delete image from cloudinary
     const publicId = this.extractPublicId(contentExists.url);
 

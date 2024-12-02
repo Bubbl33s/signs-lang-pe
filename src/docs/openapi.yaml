@@ -541,6 +541,45 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /labels/{id}/primary-content:
+    patch:
+      tags:
+        - Labels
+      summary: Establecer un contenido primario para una etiqueta por ID
+      description: Requiere autenticación
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/bases/id"
+          description: ID de la etiqueta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/bases/id"
+      responses:
+        "200":
+          description: Contenido primario establecido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/label"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   # CONTENTS
   /contents:
     get:
