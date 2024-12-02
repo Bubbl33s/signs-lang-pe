@@ -29,6 +29,12 @@ router.patch(
   authorizeRoles(["moderator", "admin"]),
   LabelController.verifyLabel,
 );
+router.patch(
+  "/:id/primary-content",
+  authenticateToken,
+  authorizeRoles(["moderator", "admin"]),
+  LabelController.setPrimaryContent,
+);
 router.delete(
   "/:id",
   authenticateToken,

@@ -3,19 +3,19 @@ import { CreateLabel, UpdateLabel } from "../types";
 
 export class LabelService {
   static async getLabels() {
-    return Label.find();
+    return Label.find().populate("primaryContentId");
   }
 
   static async getLabelById(labelId: string) {
-    return Label.findById(labelId);
+    return Label.findById(labelId).populate("primaryContentId");
   }
 
   static async getLabelByName(name: string) {
-    return Label.findOne({ name });
+    return Label.findOne({ name }).populate("primaryContentId");
   }
 
   static getLabelsByCategory(categoryId: string) {
-    return Label.find({ categoryId });
+    return Label.find({ categoryId }).populate("primaryContentId");
   }
 
   static async createLabel(label: CreateLabel) {
@@ -52,6 +52,20 @@ export class LabelService {
     }
 
     return Label.findByIdAndUpdate(labelId, { verified: true }, { new: true });
+  }
+
+  static async setPrimaryContent(labelId: string, contentId: string) {
+    const labelExists = await this.getLabelById(labelId);
+
+    if (!labelExists) {
+      throw new Error("Etiqueta no encontrada");
+    }
+
+    return Label.findByIdAndUpdate(
+      labelId,
+      { primaryContentId: contentId },
+      { new: true },
+    );
   }
 
   static async deleteLabel(labelId: string) {
