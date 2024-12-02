@@ -62,8 +62,12 @@ export class ContentService {
         throw new Error("Etiqueta no encontrada");
       }
     } else {
-      if (!labelName || !categoryId) {
+      if (!labelName) {
         throw new Error("Nombre de etiqueta requerido");
+      }
+
+      if (!categoryId) {
+        throw new Error("Categoría requerida");
       }
 
       const categoryExists = await CategoryService.getCategoryById(categoryId);
@@ -74,6 +78,7 @@ export class ContentService {
 
       // If label doesn't exist and labelName is provided, create label
       label = await LabelService.createLabel({ name: labelName, categoryId });
+
       labelId = label._id.toString();
     }
 
@@ -90,7 +95,18 @@ export class ContentService {
       stream.end(fileBuffer);
     });
 
-    return Content.create({ url: result.secure_url, labelId, contributorId });
+    const content = await Content.create({
+      url: result.secure_url,
+      labelId,
+      contributorId,
+    });
+
+    // Set primary content for the label if it doesn't have one
+    if (!label.primaryContent) {
+      await LabelService.setPrimaryContent(labelId, content._id.toString());
+    }
+
+    return content;
   }
 
   static async verifyContent(contentId: string) {
@@ -148,11 +164,15 @@ export class ContentService {
       throw new Error("Contenido no encontrado");
     }
 
+    if (!contentExists.labelId) {
+      throw new Error("El contenido no tiene un Label asociado.");
+    }
+
     const label = await LabelService.getLabelById(
       contentExists.labelId.toString(),
     );
 
-    if (label && label.primaryContentId!.toString() === contentId) {
+    if (label?.primaryContent?.toString() === contentId) {
       throw new Error("No se puede eliminar contenido primario");
     }
 

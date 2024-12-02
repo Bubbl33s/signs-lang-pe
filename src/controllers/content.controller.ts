@@ -72,7 +72,7 @@ export class ContentController {
 
   static async createContent(req: Request, res: Response, next: NextFunction) {
     try {
-      const { labelId, contributorId, labelName } = req.body;
+      const { labelId, contributorId, labelName, categoryId } = req.body;
 
       const file = req.file;
 
@@ -85,6 +85,7 @@ export class ContentController {
         labelId,
         labelName,
         contributorId,
+        categoryId,
       });
 
       res.json(content);

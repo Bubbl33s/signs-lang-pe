@@ -25,7 +25,7 @@ const labelSchema = new mongoose.Schema({
     default: false,
     index: true,
   },
-  primaryContentId: {
+  primaryContent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Content",
   },

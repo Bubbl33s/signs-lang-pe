@@ -3,19 +3,19 @@ import { CreateLabel, UpdateLabel } from "../types";
 
 export class LabelService {
   static async getLabels() {
-    return Label.find().populate("primaryContentId");
+    return Label.find().populate("primaryContent");
   }
 
   static async getLabelById(labelId: string) {
-    return Label.findById(labelId).populate("primaryContentId");
+    return Label.findById(labelId).populate("primaryContent");
   }
 
   static async getLabelByName(name: string) {
-    return Label.findOne({ name }).populate("primaryContentId");
+    return Label.findOne({ name }).populate("primaryContent");
   }
 
   static getLabelsByCategory(categoryId: string) {
-    return Label.find({ categoryId }).populate("primaryContentId");
+    return Label.find({ categoryId }).populate("primaryContent");
   }
 
   static async createLabel(label: CreateLabel) {
@@ -63,7 +63,7 @@ export class LabelService {
 
     return Label.findByIdAndUpdate(
       labelId,
-      { primaryContentId: contentId },
+      { primaryContent: contentId },
       { new: true },
     );
   }
