@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  knowsSignLanguage: {
+    type: Boolean,
+    default: false,
+  },
   role: {
     type: String,
     required: true,

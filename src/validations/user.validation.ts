@@ -28,6 +28,11 @@ export const updateUserValidation = z.object({
       invalid_type_error: "El campo debe ser un booleano",
     })
     .optional(),
+  knowsSignLanguage: z
+    .boolean({
+      invalid_type_error: "El campo debe ser un booleano",
+    })
+    .optional(),
   role: z
     .enum(["user", "moderator", "admin"], {
       message: "El rol debe ser 'user', 'moderator' o 'admin'",
