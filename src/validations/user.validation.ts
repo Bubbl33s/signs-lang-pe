@@ -6,22 +6,22 @@ export const updateUserValidation = z.object({
       required_error: "El nombre de usuario es requerido",
       invalid_type_error: "El nombre de usuario debe ser una cadena de texto",
     })
-    .min(8, {
-      message: "El nombre de usuario debe tener al menos 3 caracteres",
+    .min(6, {
+      message: "El nombre de usuario debe tener al menos 6 caracteres",
     })
-    .max(20, {
-      message: "El nombre de usuario debe tener como máximo 255 caracteres",
+    .max(25, {
+      message: "El nombre de usuario debe tener como máximo 25 caracteres",
     }),
   fullName: z
     .string({
       required_error: "El nombre es requerido",
       invalid_type_error: "El nombre debe ser una cadena de texto",
     })
-    .min(3, {
-      message: "El nombre debe tener al menos 3 caracteres",
+    .min(6, {
+      message: "El nombre debe tener al menos 6 caracteres",
     })
-    .max(255, {
-      message: "El nombre debe tener como máximo 255 caracteres",
+    .max(100, {
+      message: "El nombre debe tener como máximo 100 caracteres",
     }),
   isDeafMute: z
     .boolean({
