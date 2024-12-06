@@ -968,6 +968,10 @@ components:
           type: boolean
           example: false
           description: Indica si el usuario es sordo-mudo
+        knowsSignLanguage:
+          type: boolean
+          example: true
+          description: Indica si el usuario conoce el lenguaje de señas
         role:
           type: string
           example: "user"
@@ -1070,6 +1074,10 @@ components:
           type: boolean
           example: false
           description: Indica si el usuario es sordo-mudo
+        knowsSignLanguage:
+          type: boolean
+          example: true
+          description: Indica si el usuario conoce el lenguaje de señas
         role:
           type: string
           example: "user"
