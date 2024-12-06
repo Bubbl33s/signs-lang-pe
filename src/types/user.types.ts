@@ -2,6 +2,7 @@ export type UpdateUser = {
   username: string;
   fullName: string;
   isDeafMute?: boolean;
+  knowsSignLanguage?: boolean;
   role?: "user" | "moderator";
 };
 

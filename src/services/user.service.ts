@@ -32,6 +32,10 @@ export class UserService {
 
     user.password = await hashPassword(user.password);
 
+    if (user.knowsSignLanguage) {
+      user.role = "moderator";
+    }
+
     return User.create(user);
   }
 
