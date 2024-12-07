@@ -398,6 +398,29 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /labels/unverified/content:
+    get:
+      tags:
+        - Labels
+      summary: Obtener todas las etiquetas con contenido no verificado
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/label"
+                    - type: object
+                      properties:
+                        unverifiedCount:
+                          type: integer
+                          description: Cantidad de contenido no verificado
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /labels/{id}:
     get:
       tags:
