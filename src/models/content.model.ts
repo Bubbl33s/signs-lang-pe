@@ -9,6 +9,7 @@ const contentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Label",
     required: true,
+    index: true,
   },
   verified: {
     type: Boolean,

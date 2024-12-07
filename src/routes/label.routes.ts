@@ -6,6 +6,10 @@ import { labelNameValidation } from "../validations";
 const router = Router();
 
 router.get("/", LabelController.getLabels);
+router.get(
+  "/unverified/content",
+  LabelController.getLabelsWithUnverifiedContent,
+);
 router.get("/:id", LabelController.getLabelById);
 router.get("/name/:name", LabelController.getLabelByName);
 router.get("/category/:categoryId", LabelController.getLabelsByCategory);

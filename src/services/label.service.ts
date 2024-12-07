@@ -6,6 +6,45 @@ export class LabelService {
     return Label.find().populate("primaryContent");
   }
 
+  static async getLabelsWithUnverifiedContent() {
+    const results = await Label.aggregate([
+      {
+        $lookup: {
+          from: "contents",
+          localField: "_id",
+          foreignField: "labelId",
+          as: "contents",
+        },
+      },
+      {
+        $addFields: {
+          unverifiedCount: {
+            $size: {
+              $filter: {
+                input: "$contents",
+                as: "content",
+                cond: { $eq: ["$$content.verified", false] },
+              },
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          name: 1,
+          categoryId: 1,
+          reliability: 1,
+          verified: 1,
+          primaryContent: 1,
+          createdAt: 1,
+          unverifiedCount: 1,
+        },
+      },
+    ]);
+
+    return results;
+  }
+
   static async getLabelById(labelId: string) {
     return Label.findById(labelId).populate("primaryContent");
   }
