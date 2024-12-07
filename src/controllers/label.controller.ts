@@ -16,6 +16,24 @@ export class LabelController {
     }
   }
 
+  static async getLabelsWithUnverifiedContent(
+    _: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const labels = await LabelService.getLabelsWithUnverifiedContent();
+
+      if (!labels) {
+        throw new Error("No hay etiquetas");
+      }
+
+      res.json(labels);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async getLabelById(req: Request, res: Response, next: NextFunction) {
     try {
       const labelId = req.params.id;
