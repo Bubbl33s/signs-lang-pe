@@ -17,6 +17,14 @@ export class LabelService {
         },
       },
       {
+        $lookup: {
+          from: "contents",
+          localField: "primaryContent",
+          foreignField: "_id",
+          as: "primaryContent",
+        },
+      },
+      {
         $addFields: {
           unverifiedCount: {
             $size: {
@@ -35,7 +43,7 @@ export class LabelService {
           categoryId: 1,
           reliability: 1,
           verified: 1,
-          primaryContent: 1,
+          primaryContent: { $first: "$primaryContent" },
           createdAt: 1,
           unverifiedCount: 1,
         },

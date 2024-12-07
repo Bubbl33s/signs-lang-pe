@@ -1130,6 +1130,8 @@ components:
           type: boolean
           example: true
           description: Indica si la etiqueta ha sido verificada
+        primaryContent:
+          $ref: "#/components/schemas/content"
         createdAt:
           $ref: "#/components/bases/date"
 
