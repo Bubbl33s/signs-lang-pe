@@ -14,6 +14,12 @@ router.get("/", ContentController.getContents);
 router.get("/:id", ContentController.getContentById);
 router.get("/label/:labelId", ContentController.getContentsByLabel);
 router.get(
+  "/label/:labelId/unverified",
+  authenticateToken,
+  authorizeRoles(["moderator", "admin"]),
+  ContentController.getUnverifiedContentsByLabel,
+);
+router.get(
   "/contributor/:contributorId",
   ContentController.getContentsByContributor,
 );
