@@ -16,13 +16,13 @@ export class LabelController {
     }
   }
 
-  static async getLabelsWithUnverifiedContent(
+  static async getLabelsWithContentCount(
     _: Request,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      const labels = await LabelService.getLabelsWithUnverifiedContent();
+      const labels = await LabelService.getLabelsWithContentCount();
 
       if (!labels) {
         throw new Error("No hay etiquetas");
