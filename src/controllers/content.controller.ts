@@ -50,6 +50,25 @@ export class ContentController {
     }
   }
 
+  static async getVerifiedContentsByLabel(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const labelId = req.params.labelId;
+      const contents = await ContentService.getVerifiedContentsByLabel(labelId);
+
+      if (!contents) {
+        throw new Error("Contenido no encontrado");
+      }
+
+      res.json(contents);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async getUnverifiedContentsByLabel(
     req: Request,
     res: Response,

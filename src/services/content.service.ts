@@ -24,6 +24,16 @@ export class ContentService {
     return Content.find({ labelId });
   }
 
+  static async getVerifiedContentsByLabel(labelId: string) {
+    const labelExists = await LabelService.getLabelById(labelId);
+
+    if (!labelExists) {
+      throw new Error("Etiqueta no encontrada");
+    }
+
+    return Content.find({ labelId, verified: true });
+  }
+
   static async getUnverifiedContentsByLabel(labelId: string) {
     const labelExists = await LabelService.getLabelById(labelId);
 
