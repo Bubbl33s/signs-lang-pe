@@ -105,10 +105,13 @@ export class ContentService {
       stream.end(fileBuffer);
     });
 
+    const defaultVerified = contributor.role === "user" ? false : true;
+
     const content = await Content.create({
       url: result.secure_url,
       labelId,
       contributorId,
+      verified: defaultVerified,
     });
 
     // Set primary content for the label if it doesn't have one
@@ -138,6 +141,15 @@ export class ContentService {
 
     if (labelId) {
       await this.updateLabelReliability(labelId.toString());
+    }
+
+    const label = await LabelService.getLabelById(labelId.toString());
+
+    if (
+      label?.primaryContent === null ||
+      label?.primaryContent?.toString() === ""
+    ) {
+      await LabelService.setPrimaryContent(labelId.toString(), contentId);
     }
 
     return content;
@@ -183,7 +195,7 @@ export class ContentService {
     );
 
     if (label?.primaryContent?.toString() === contentId) {
-      throw new Error("No se puede eliminar contenido primario");
+      label.primaryContent = null;
     }
 
     // Delete image from cloudinary
