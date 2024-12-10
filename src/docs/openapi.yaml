@@ -731,6 +731,32 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /contents/label/{labelId}/verified:
+    get:
+      tags:
+        - Contents
+      summary: Obtener todos los contenidos verificados por ID de etiqueta
+      parameters:
+        - in: path
+          name: labelId
+          required: true
+          schema:
+            $ref: "#/components/bases/id"
+          description: ID de la etiqueta
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/content"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /contents/label/{labelId}/unverified:
     get:
       tags:
