@@ -6,7 +6,7 @@ export class LabelService {
     return Label.find().populate("primaryContent");
   }
 
-  static async getLabelsWithUnverifiedContent() {
+  static async getLabelsWithContentCount() {
     const results = await Label.aggregate([
       {
         $lookup: {
@@ -35,6 +35,15 @@ export class LabelService {
               },
             },
           },
+          verifiedCount: {
+            $size: {
+              $filter: {
+                input: "$contents",
+                as: "content",
+                cond: { $eq: ["$$content.verified", true] },
+              },
+            },
+          },
         },
       },
       {
@@ -45,6 +54,7 @@ export class LabelService {
           verified: 1,
           primaryContent: { $first: "$primaryContent" },
           createdAt: 1,
+          verifiedCount: 1,
           unverifiedCount: 1,
         },
       },
