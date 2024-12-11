@@ -1,4 +1,4 @@
-# 🧸 Ecommerce Toy Backend
+# 🧸 Signs Lang PE
 
 REST API for my personal Peruvian Sign Language project
 
